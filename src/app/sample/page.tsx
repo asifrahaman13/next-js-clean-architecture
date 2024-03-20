@@ -1,12 +1,8 @@
+"use client";
 
-"use client"
+import React, { useEffect, useState } from "react";
 
-import React, { useEffect, useState } from 'react';
-import UserRepository from '@/infrastructure/repositories/UserRepository';
-import GetUserById from '@/domain/usecases/GetUserById';
-
-const userRepo = new UserRepository();
-const getUserById = new GetUserById(userRepo);
+import { getUserById } from "../container/exportedRepos";
 
 const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const [user, setUser] = useState<any>(null);
@@ -14,7 +10,7 @@ const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await getUserById.execute(userId);
-      console.log(userData)
+      console.log(userData);
       setUser(userData);
     };
 
@@ -36,4 +32,3 @@ const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
 };
 
 export default UserProfile;
-
