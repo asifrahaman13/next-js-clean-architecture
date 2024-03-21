@@ -1,21 +1,28 @@
 "use client";
 
+// UserProfile.tsx
+
 import React, { useEffect, useState } from "react";
+import UserRepositoryInterface from "@/domain/interfaces/userInterfaces";
+import UserRepository from "@/infrastructure/repositories/UserRepository";
+import GetUserById from "@/domain/usecases/GetUserById";
 
-import { getUserById } from "../container/exportedRepos";
+const userRepository = new UserRepository();
+const getUserById:UserRepositoryInterface = new GetUserById(userRepository);
 
-const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
+const UserProfile: React.FC = () => {
+  const userId = "1"; // Hardcoded userId
+
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userData = await getUserById.execute(userId);
-      console.log(userData);
+      const userData = await getUserById.getById(userId);
       setUser(userData);
     };
 
     fetchUser();
-  }, [userId]);
+  }, []);
 
   return (
     <div>

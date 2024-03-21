@@ -1,13 +1,14 @@
-import UserRepositoryInterface from '../interfaces/userInterfaces';
+import UserRepository from '@/infrastructure/repositories/UserRepository';
 
 class GetUserById {
-  private userRepository: UserRepositoryInterface;
+  private userRepository: UserRepository;
 
-  constructor(userRepository: UserRepositoryInterface) {
+  constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 
-  async execute(id: string) {
+  async getById(id: string) {
+    console.log('GetUserById usecase');
     return this.userRepository.getById(id);
   }
 }
